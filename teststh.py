@@ -21,7 +21,9 @@ from PIL import Image
 root=tk.Tk()
 root.withdraw()
 file_path=filedialog.askopenfilename()
-print(os.path.splitext(file_path)[0])
-myfilename = print(os.path.splitext(file_path)[0])
-print("hey&&&&&&&&&&:  ")
-print(myfilename)  
+#print(os.path.splitext(file_path)[0])
+#myfilename = print(os.path.splitext(file_path)[0])
+#//print(os.path.basename(file_path).split('/')[-1])
+myfile1= os.path.basename(file_path).split('/')[-1]
+docfilename=myfile1.split(".")[0]
+print(docfilename)
