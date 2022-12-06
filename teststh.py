@@ -24,6 +24,11 @@ file_path=filedialog.askopenfilename()
 #print(os.path.splitext(file_path)[0])
 #myfilename = print(os.path.splitext(file_path)[0])
 #//print(os.path.basename(file_path).split('/')[-1])
+old_name=file_path
 myfile1= os.path.basename(file_path).split('/')[-1]
 docfilename=myfile1.split(".")[0]
-print(docfilename)
+print(docfilename) 
+folder = "D:\\test"
+source = 'D:\GFG21.csv'
+destination = folder + '\\'+docfilename +  ".csv"
+os.rename(source, destination)
