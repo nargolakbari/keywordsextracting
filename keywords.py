@@ -14,10 +14,36 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import matplotlib.pyplot as plt
 
+
+#script_dir = os.path.dirname(__file__) #<-- absolute dir the script is in
+#rel_path = "testdir/stop_words_english.txt"
+#abs_file_path = os.path.join(script_dir, rel_path)
+#print(abs_file_path)
+#a_file = open("stop_words_english.txt")
+
+#contents = a_file.read()
+#print(f"File location using __file__ variable: {os.path.realpath(os.path.dirname(__file__))}")
+
 # pip install wordcloud
 #from wordcloud import WordCloud, STOPWORDS
 import numpy as np
 from PIL import Image
+
+#destination = folder + '\\'+docfilename +  ".csv"
+namestopwordfile="stopwordsenglish"
+currentdirectory=os.path.realpath(os.path.dirname(__file__))
+mystopwordpath = currentdirectory + '\\'+ namestopwordfile +  ".txt"
+word ="using"
+#print(destination)
+with open(mystopwordpath, 'r', encoding='utf-8') as file:
+        # read all content of a file
+        content = file.read()
+        # check if string present in a file
+        if word in content:
+            print('string exist in a file')
+        else:
+            print('string does not exist in a file')
+
 root=tk.Tk()
 root.withdraw()
 file_path=filedialog.askopenfilename()
@@ -33,16 +59,30 @@ with open("D:\converted_original_docx.txt", "w", encoding='utf-8') as text_file:
 
 stop_words = set(stopwords.words('english')) - set(['7T', '1.5T', '3T','9T'])  # remove stopwords"
 file1 = open("D:\converted_original_docx.txt", encoding='utf-8')
-
+#print(type(stop_words))
 
 # Use this to read file content as a stream:
 line = file1.read()
 words = line.split()
 for r in words:
     if not r in stop_words:
-        appendFile = open('D:\converted_reduced_docx.txt', 'a', encoding='utf-8')
+        appendFile = open('D:\middle_converted_reduced_docx.txt', 'a', encoding='utf-8')
         appendFile.write(" " + r)
         appendFile.close()
+        
+file2 = open("D:\middle_converted_reduced_docx.txt", encoding='utf-8')
+line2 = file2.read()
+words2 = line2.split()        
+with open(mystopwordpath, 'r', encoding='utf-8') as file:
+        # read all content of a file
+        content = file.read()
+        # check if string present in a file
+        for r in words2:
+           if not r in content:
+              appendFile = open('D:\converted_reduced_docx.txt', 'a', encoding='utf-8')
+              appendFile.write(" " + r)
+              appendFile.close()
+        
 
 frequency = {}
 document_text = open('D:\converted_reduced_docx.txt', 'r', encoding='utf-8')
