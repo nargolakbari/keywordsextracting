@@ -33,16 +33,7 @@ from PIL import Image
 namestopwordfile="stopwordsenglish"
 currentdirectory=os.path.realpath(os.path.dirname(__file__))
 mystopwordpath = currentdirectory + '\\'+ namestopwordfile +  ".txt"
-word ="using"
-#print(destination)
-with open(mystopwordpath, 'r', encoding='utf-8') as file:
-        # read all content of a file
-        content = file.read()
-        # check if string present in a file
-        if word in content:
-            print('string exist in a file')
-        else:
-            print('string does not exist in a file')
+
 
 root=tk.Tk()
 root.withdraw()
@@ -90,7 +81,7 @@ text_string = document_text.read().lower()#r'\b[a-z]{3,15}\b'
 regex1 = r'\d[-.]\d\d[a-zA-Z]'
 regex2 = r'\d[-.]\d[a-zA-Z]'
 regex3=r'\s\b\d[a-zA-Z]+'
-regex4 = r'\b[a-zA-Z]{2,15}\b'  
+regex4 = r'\b[a-zA-Z]{3,15}\b'  
 match_pattern= re.compile("(%s|%s|%s|%s)" % (regex1, regex2, regex3, regex4)).findall(text_string)
 for word in match_pattern:# extract words and their ferequencies 
     count = frequency.get(word, 0)

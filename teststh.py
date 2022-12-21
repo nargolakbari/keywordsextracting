@@ -18,35 +18,33 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-document_text = open('D:\converted_reduced_docx.txt', 'r', encoding='utf-8')
-text_string = document_text.read().lower()
-frequency = {}
-regex1 = r'\d[-.]\d\d[a-zA-Z]'
-regex2 = r'\d[-.]\d[a-zA-Z]'
-regex3=r'\s\b\d[a-zA-Z]+'
-regex4 = r'\b[a-zA-Z]{2,15}\b'  
-match_pattern= re.compile("(%s|%s|%s|%s)" % (regex1, regex2, regex3, regex4)).findall(text_string)
+import nltk #with this functions we expand stopwords with verbs and their derivative  
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+data = open(r'D:\converted2_reduced_docx.txt',mode = 'r', encoding = 'utf-8').read()
+tokens = nltk.word_tokenize(data)
+pos_tagged_tokens = nltk.pos_tag(tokens)
 
-for word in match_pattern:
-    count = frequency.get(word, 0)
-    frequency[word] = count + 1
+list_of_verbs = []
+for i in range(len(pos_tagged_tokens)):
+    if pos_tagged_tokens[i][1].startswith('V'):
+       list_of_verbs.append(pos_tagged_tokens[i][0])
+    
+nltk.download('stopwords')
+stopwords = nltk.corpus.stopwords.words('english')
+stopwords.extend(list_of_verbs)
 
-frequency_list = frequency.keys()
-wordlist = []
-frequencylist = []
 
+              
+file1 = open("D:\middle_converted_reduced_docx.txt", encoding='utf-8')#then we prone our text again aggainst having stop words 
+#print(type(stop_words))
 
-keys = list(frequency.keys())
-#print(keys[1])
-myval = [*frequency.keys()]
-myvals = [*frequency.values()]  # "name"
-
-dict = {'word': myval, 'frequency': myvals}
-
-df = pd.DataFrame(dict)
-dfsorted = df.sort_values(by='frequency', ascending=False)
-
-folder = "D:\\result"
-docfilename="myresult"
-destination = folder + '\\'+docfilename +  ".csv"
-dfsorted.to_csv(destination)
+# Use this to read file content as a stream:
+line = file1.read()
+words = line.split()
+for r in words:
+    if not r in stopwords:
+        appendFile = open('D:\converted_reduced_docx.txt', 'a', encoding='utf-8')
+        appendFile.write(" " + r)
+        appendFile.close()
+                      
